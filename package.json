@@ -1,0 +1,42 @@
+{
+  "name": "demo-cli",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "private": true,
+  "license": "ISC",
+  "bin": {
+    "dc": "./dist/src/tools/cliCreator/bin/flex.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^8.2.0",
+    "figlet": "^1.5.2",
+    "fs-extra": "^10.0.0",
+    "inquirer": "^8.1.5",
+    "ora": "5.4.1"
+  },
+  "devDependencies": {
+    "@types/figlet": "^1.5.4",
+    "@types/fs-extra": "^9.0.12",
+    "@types/inquirer": "^8.1.1",
+    "@types/node": "^16.0.0",
+    "@types/ora": "^3.2.0",
+    "@types/shelljs": "^0.8.11",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.0.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.3.2",
+    "source-map-support": "^0.5.20",
+    "ts-loader": "^9.2.3",
+    "ts-node": "^10.0.0",
+    "tsconfig-paths": "4.0.0",
+    "typescript": "^4.3.5"
+  }
+}
