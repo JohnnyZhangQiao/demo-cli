@@ -5,7 +5,7 @@ export type TTemplate = {
 
 export const template: TTemplate[] = [
   {
-    name: 'console-next',
+    name: 'lottery-box',
     git: 'https://github.com/JohnnyZhangQiao/lottery-box.git',
   },
 ];

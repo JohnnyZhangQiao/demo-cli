@@ -2,7 +2,7 @@ import { prompt } from 'inquirer';
 import shell from 'shelljs';
 import fse from 'fs-extra';
 import fs from 'fs';
-import { cyan, red } from 'chalk';
+import { cyan, red, green } from 'chalk';
 import { loading } from '@root/src/utils/global';
 import { template, TTemplate } from '../constants/repo';
 
@@ -40,9 +40,9 @@ export const mainLine = async (projectName: string) => {
     info.description = await getDescription();
 
     // 下载模板
-    await loading(`Cloning into ${info.repo}`, download, info);
+    await loading(`下载模板 ${info.repo}`, download, info);
 
-    console.log(`\r\nSuccessfully created project ${cyan(info.name)}`);
+    console.log(green(`成功创建 ${cyan(info.name)}`));
   } catch (err) {
     console.log(red('❌ Error: ' + err));
   }
@@ -54,22 +54,19 @@ export const mainLine = async (projectName: string) => {
 const getRepoInfo = async () => {
   try {
     // 获取组织下的仓库信息
-    const repoList = await loading<TTemplate[]>(
-      'waiting for fetching template',
-      () => template,
-    );
+    const repoList = await loading<TTemplate[]>('waiting for fetching template', () => template);
 
     if (!repoList || repoList.length === 0) return Promise.reject('无权限访问');
 
     // 提取仓库名
-    const repos = repoList.map((item) => item.name);
+    const repos = repoList.map(item => item.name);
 
     // 选取模板信息
     const { repo } = await prompt([
       {
         name: 'repo',
         type: 'list',
-        message: 'Please choose a template to create project',
+        message: '请选择工程模板',
         choices: repos,
       },
     ]);
@@ -85,11 +82,7 @@ const getRepoInfo = async () => {
  */
 const getTagInfo = async (repo: string): Promise<string> => {
   try {
-    const tagList = await loading<string[]>(
-      'waiting for fetching version',
-      getTagInfoList,
-      repo,
-    );
+    const tagList = await loading<string[]>('waiting for fetching version', getTagInfoList, repo);
 
     if (!tagList || tagList.length === 0) return Promise.reject('无版本列表');
 
@@ -98,7 +91,7 @@ const getTagInfo = async (repo: string): Promise<string> => {
       {
         name: 'tag',
         type: 'list',
-        message: 'Please choose a version to create project',
+        message: '请选择版本',
         choices: tagList,
       },
     ]);
@@ -121,7 +114,7 @@ const getAuthor = async () => {
       {
         name: 'author',
         type: 'input',
-        message: 'Please enter your name',
+        message: '请输入作者',
         default: stdout.replace(/\n/g, ''),
       },
     ]);
@@ -138,7 +131,7 @@ const getDescription = async () => {
       {
         name: 'description',
         type: 'input',
-        message: 'Please enter project description',
+        message: '请输入项目描述',
         default: 'a paas project',
       },
     ]);
@@ -152,25 +145,21 @@ const getDescription = async () => {
  */
 const getTagInfoList = (repo: string): Promise<string[]> => {
   return new Promise((resolve, reject) => {
-    shell.exec(
-      `git ls-remote --tag ${template.find((item) => item.name === repo)?.git}`,
-      { silent: true },
-      (code, stdout, stderr) => {
-        if (code === 0) {
-          const tags: string[] = [];
-          stdout
-            .split('\n')
-            .filter((item) => !!item)
-            .forEach((item) => {
-              const tagStr = item.match(/[^\/]+(?!.*\/)/);
-              if (tagStr && tagStr.length > 0) tags.push(tagStr[0]);
-            });
-          resolve(tags);
-        } else {
-          reject(stderr);
-        }
-      },
-    );
+    shell.exec(`git ls-remote --tag ${template.find(item => item.name === repo)?.git}`, { silent: true }, (code, stdout, stderr) => {
+      if (code === 0) {
+        const tags: string[] = [];
+        stdout
+          .split('\n')
+          .filter(item => !!item)
+          .forEach(item => {
+            const tagStr = item.match(/[^\/]+(?!.*\/)/);
+            if (tagStr && tagStr.length > 0) tags.push(tagStr[0]);
+          });
+        resolve(tags);
+      } else {
+        reject(stderr);
+      }
+    });
   });
 };
 
@@ -180,14 +169,11 @@ const getTagInfoList = (repo: string): Promise<string[]> => {
  */
 const download = async (info: TInfo) => {
   try {
-    const gitUrl = template.find((item) => item.name === info.repo)?.git;
+    const gitUrl = template.find(item => item.name === info.repo)?.git;
 
     if (!gitUrl) return Promise.reject('git repository is not found');
 
-    const { code, stderr } = await shell.exec(
-      `git clone --branch ${info.version} ${gitUrl}`,
-      { silent: true },
-    );
+    const { code, stderr } = await shell.exec(`git clone --branch ${info.version} ${gitUrl}`, { silent: true });
 
     if (code === 0) {
       const cwd = process.cwd();

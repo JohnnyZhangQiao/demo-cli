@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // 拦截全局请求响应
-axios.interceptors.response.use((res) => {
+axios.interceptors.response.use(res => {
   return res.data;
 });
 
@@ -10,9 +10,7 @@ axios.interceptors.response.use((res) => {
  * @returns Promise
  */
 export const getRepo = async (): Promise<any> => {
-  return axios.get(
-    'https://git.woa.com/api/v3/projects?private_token=CSiY7Iw-mxsDWwuGbpiQ&&search=templates',
-  );
+  return axios.get('https://git.woa.com/api/v3/projects?private_token=CSiY7Iw-mxsDWwuGbpiQ&&search=templates');
 };
 
 /**
@@ -21,7 +19,5 @@ export const getRepo = async (): Promise<any> => {
  * @returns Promise
  */
 export const getTagsByRepo = async (repo: string): Promise<any> => {
-  return axios.get(
-    `https://git.woa.com/api/v3/projects/${repo}/repository/tags?private_token=CSiY7Iw-mxsDWwuGbpiQ`,
-  );
+  return axios.get(`https://git.woa.com/api/v3/projects/${repo}/repository/tags?private_token=CSiY7Iw-mxsDWwuGbpiQ`);
 };

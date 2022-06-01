@@ -4,14 +4,10 @@ import { clearDirectory } from './filesHandler';
 import { mainLine } from './creator';
 import { red } from 'chalk';
 
-export const create = async (
-  projectName: string,
-  options: Record<string, unknown>,
-) => {
+export const create = async (projectName: string, options: Record<string, unknown>) => {
   try {
     // 获取当前工作目录
-    const cwd = process.cwd();
-    const targetDirectory = path.join(cwd, projectName);
+    const targetDirectory = path.resolve(process.cwd(), projectName);
     let result = '';
 
     // 检查是否有文件覆盖

@@ -6,7 +6,8 @@
   "private": true,
   "license": "ISC",
   "bin": {
-    "dc": "./dist/src/tools/cliCreator/bin/flex.js"
+    "dc": "./bin/src/tools/cliCreator/bin/flex.js",
+    "demo-cli": "./bin/src/tools/cliCreator/bin/flex.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

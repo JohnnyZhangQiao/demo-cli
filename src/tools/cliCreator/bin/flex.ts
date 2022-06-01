@@ -7,27 +7,16 @@ import { create } from '../lib';
 import pkg from '@root/package.json';
 
 program
-  .command('create <project-name>') // 增加创建指令
-  .description('create a new project') // 添加描述信息
-  .option('-f, --force', 'overwrite target directory if it exists') // 强制覆盖
+  .command('create <project-name>')
+  .description('创建项目')
+  .option('-f, --force', '是否强制覆盖')
   .action((projectName, cmd) => {
-    // 处理用户输入create 指令附加的参数
     create(projectName, cmd).then();
   });
 
-program
-  .command('config [value]')
-  .description('inspect and modify the config')
-  .option('-g, --get <key>', 'get value by key')
-  .option('-s, --set <key> <value>', 'set option[key] is value')
-  .option('-d, --delete <key>', 'delete option by key')
-  .action((value, keys) => {
-    console.log(value, keys);
-  });
-
-program.on('--help', function () {
+program.on('--help', () => {
   console.log(
-    '\r\n' +
+    cyan(
       figlet.textSync('dc', {
         font: '3D-ASCII',
         horizontalLayout: 'default',
@@ -35,21 +24,9 @@ program.on('--help', function () {
         width: 80,
         whitespaceBreak: true,
       }),
-  );
-  console.log(
-    `Run ${cyan(
-      'dc <command> --help',
-    )} for detailed usage of given command.`,
+    ),
   );
 });
 
-program
-  .name('dc')
-  .usage(`<command> [option]`)
-  .version(`dc ${pkg.version}`);
-
-// 解析用户执行时输入的参数
-// process.argv 是 nodejs 提供的属性
-// npm run server --port 3000
-// 后面的 --port 3000 就是用户输入的参数
+program.name('dc').usage(`<command> [option]`).version(`dc ${pkg.version}`);
 program.parse(process.argv);

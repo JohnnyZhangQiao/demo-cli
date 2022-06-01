@@ -7,10 +7,7 @@ import { loading } from '@root/src/utils/global';
  * @param targetDirectory
  * @param options
  */
-export const clearDirectory = async (
-  targetDirectory: string,
-  options: Record<string, unknown>,
-): Promise<string> => {
+export const clearDirectory = async (targetDirectory: string, options: Record<string, unknown>): Promise<string> => {
   try {
     if (options.force) {
       // 强制删除
@@ -23,10 +20,10 @@ export const clearDirectory = async (
       {
         name: 'isOverwrite',
         type: 'list',
-        message: 'Target directory exists, Please choose an action',
+        message: '目录已存在，是否覆盖',
         choices: [
-          { name: 'Overwrite', value: true },
-          { name: 'Cancel', value: false },
+          { name: '覆盖', value: true },
+          { name: '取消', value: false },
         ],
       },
     ]);
@@ -35,11 +32,7 @@ export const clearDirectory = async (
     if (!isOverwrite) return Promise.resolve('Cancel');
 
     // 覆盖
-    await loading(
-      `Removing..., please wait a minute`,
-      fse.removeSync,
-      targetDirectory,
-    );
+    await loading(`删除中...`, fse.removeSync, targetDirectory);
     return Promise.resolve('Done');
   } catch (err) {
     return Promise.reject('清除目录失败');

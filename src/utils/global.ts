@@ -7,11 +7,7 @@ import ora from 'ora';
  * @param {any} args fn 函数执行的参数
  * @returns 异步调用返回值
  */
-export const loading = async <T>(
-  message: string,
-  fn: (...args: any[]) => any,
-  ...args: any[]
-): Promise<T | undefined | void | null> => {
+export const loading = async <T>(message: string, fn: (...args: any[]) => any, ...args: any[]): Promise<T | undefined | void | null> => {
   const spinner = ora(message);
   spinner.start(); // 开启加载
   try {
