@@ -1,18 +1,6 @@
 import ora from 'ora';
 
 /**
- * 睡眠函数
- * @param time
- */
-const sleep = (time: number): Promise<void> => {
-  return new Promise<void>((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, time);
-  });
-};
-
-/**
  * loading加载效果
  * @param {string} message 加载信息
  * @param {(...args: any[]) => any} fn 加载函数
@@ -31,10 +19,6 @@ export const loading = async <T>(
     spinner.succeed();
     return Promise.resolve(executeRes);
   } catch (err: any) {
-    // spinner.fail(`处理失败，重试...`);
-    // await sleep(1000);
-    // await loading(message, fn, ...args);
-
     spinner.fail(err);
     return Promise.reject(err);
   }

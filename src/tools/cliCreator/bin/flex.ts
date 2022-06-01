@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import 'module-alias/register';
 import { cyan } from 'chalk';
 import { program } from 'commander';
 import figlet from 'figlet';
@@ -27,7 +28,7 @@ program
 program.on('--help', function () {
   console.log(
     '\r\n' +
-      figlet.textSync('flex-cli', {
+      figlet.textSync('dc', {
         font: '3D-ASCII',
         horizontalLayout: 'default',
         verticalLayout: 'default',
@@ -37,15 +38,15 @@ program.on('--help', function () {
   );
   console.log(
     `Run ${cyan(
-      'flex-cli <command> --help',
+      'dc <command> --help',
     )} for detailed usage of given command.`,
   );
 });
 
 program
-  .name('flex-cli')
+  .name('dc')
   .usage(`<command> [option]`)
-  .version(`flex-cli ${pkg.version}`);
+  .version(`dc ${pkg.version}`);
 
 // 解析用户执行时输入的参数
 // process.argv 是 nodejs 提供的属性

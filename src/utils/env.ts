@@ -1,6 +1,6 @@
-import production from '../../config/production';
-import test from '../../config/test';
-import development from '../../config/development';
+import production from '@root/config/production';
+import test from '@root/config/test';
+import development from '@root/config/development';
 
 /**
  * 获取当前环境

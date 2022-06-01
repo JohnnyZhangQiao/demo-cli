@@ -11,13 +11,19 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "_moduleAliases": {
+    "@root": "./bin"
+  },
   "dependencies": {
+    "axios": "^0.27.2",
     "chalk": "^4.1.2",
     "commander": "^8.2.0",
     "figlet": "^1.5.2",
     "fs-extra": "^10.0.0",
     "inquirer": "^8.1.5",
-    "ora": "5.4.1"
+    "module-alias": "^2.2.2",
+    "ora": "5.4.1",
+    "shelljs": "^0.8.5"
   },
   "devDependencies": {
     "@types/figlet": "^1.5.4",
